@@ -22,16 +22,15 @@
   <style>
 
     :root {
-      --header-bg: #ebebeb;
-      --bg: #c2c2c2;
+      --bg: #474747;
       --card-bg: #d6d6d6;
-      --btn-primary: #791a3d;
-      --btn-hover: #1f2937;
-      --heading-color: #1e293b;
-      --text: #1e293b;
-      --text-muted: #6b7280;
-      --price-color: #e63b7a;
-      --border: #e5e7eb;
+      --header-bg: #c2c2c2;
+      --primary: #99244f;
+      --accent: #fefb41;
+      --heading-color: #f8fafc;
+      --text: #474747;
+      --text-muted: #94a3b8;
+      --border: #334155;
     }
 
     * {
@@ -44,47 +43,90 @@
       font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
       background: var(--bg);
       color: var(--text);
-      line-height: 1.7;
-    }
-
-    h1, h2, h3 {
-      font-family: 'Playfair Display', Georgia, serif;
+      line-height: 1.6;
     }
 
     .header {
+      padding: 1.5rem 2rem;
+      background: var(--header-bg);
+      color: white;
+    }
+
+    .header-content {
+      max-width: 1200px;
+      margin: 0 auto;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+
+    .logo {
+      font-size: 1.5rem;
+      font-weight: 700;
+    }
+
+    .nav {
+      display: flex;
+      gap: 1.5rem;
+    }
+
+    .nav a {
+      color: white;
+      text-decoration: none;
+      font-weight: 500;
+      opacity: 0.9;
+    }
+
+    .nav a:hover {
+      opacity: 1;
+    }
+
+    .hero {
       padding: 3rem 2rem;
       text-align: center;
-      background: var(--header-bg);
-      border-bottom: 1px solid var(--border);
+      background: linear-gradient(180deg, rgba(37, 99, 235, 0.05) 0%, transparent 100%);
     }
 
-    .header h1 {
+    .hero h1 {
       font-size: 2rem;
-      font-weight: 400;
-      color: var(--btn-primary);
-      letter-spacing: 0.05em;
+      margin-bottom: 0.75rem;
+      color: var(--heading-color);
     }
 
-    .header p {
+    .hero p {
       color: var(--text-muted);
-      margin-top: 0.75rem;
-      font-size: 0.875rem;
+      max-width: 600px;
+      margin: 0 auto;
     }
 
     .products-grid {
       display: grid;
-      grid-template-columns: repeat(3, 1fr);
-      gap: 2.5rem;
-      padding: 3rem 2rem;
-      max-width: 1200px;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 1.5rem;
+      padding: 2rem;
+      max-width: 1400px;
       margin: 0 auto;
+    }
+
+    @media (max-width: 1024px) {
+      .products-grid {
+        grid-template-columns: repeat(3, 1fr);
+      }
     }
 
     @media (max-width: 768px) {
       .products-grid {
         grid-template-columns: repeat(2, 1fr);
-        gap: 1.5rem;
-        padding: 2rem 1rem;
+        gap: 1rem;
+        padding: 1rem;
+      }
+
+      .nav {
+        display: none;
+      }
+
+      .hero h1 {
+        font-size: 1.5rem;
       }
     }
 
@@ -96,40 +138,72 @@
 
     .product-card {
       background: var(--card-bg);
+      border-radius: 16px;
       overflow: hidden;
-      transition: transform 0.2s;
+      border: 1px solid var(--border);
+      transition: transform 0.2s, box-shadow 0.2s;
     }
 
     .product-card:hover {
       transform: translateY(-4px);
+      box-shadow: 0 10px 25px rgba(37, 99, 235, 0.1);
+    }
+
+    .product-image-container {
+      position: relative;
+      overflow: hidden;
     }
 
     .product-image {
       width: 100%;
       aspect-ratio: 1;
       object-fit: cover;
+      transition: transform 0.3s;
+    }
+
+    .product-card:hover .product-image {
+      transform: scale(1.03);
+    }
+
+    .product-rating {
+      position: absolute;
+      top: 0.75rem;
+      right: 0.75rem;
+      background: white;
+      padding: 0.25rem 0.5rem;
+      border-radius: 20px;
+      font-size: 0.75rem;
+      font-weight: 600;
+      display: flex;
+      align-items: center;
+      gap: 0.25rem;
+      box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+    }
+
+    .product-rating::before {
+      content: '★';
+      color: var(--accent);
     }
 
     .product-info {
-      padding: 1.25rem 0;
+      padding: 1.25rem;
     }
 
     .product-title {
-      font-family: 'Playfair Display', Georgia, serif;
-      font-size: 1rem;
-      font-weight: 400;
-      color: var(--text);
+      font-size: 0.875rem;
+      font-weight: 500;
       display: -webkit-box;
       -webkit-line-clamp: 2;
       -webkit-box-orient: vertical;
       overflow: hidden;
       min-height: 2.6rem;
+      color: var(--text);
     }
 
     .product-price {
-      font-size: 1rem;
-      font-weight: 500;
-      color: var(--price-color);
+      font-size: 1.125rem;
+      font-weight: 700;
+      color: var(--primary);
       margin-top: 0.5rem;
     }
 
@@ -138,12 +212,11 @@
       width: 100%;
       padding: 0.875rem;
       margin-top: 1rem;
-      background: var(--btn-primary);
+      background: var(--primary);
       color: white;
       border: none;
-      font-family: 'Inter', sans-serif;
-      font-weight: 500;
-      font-size: 0.875rem;
+      border-radius: 16px;
+      font-weight: 600;
       cursor: pointer;
       text-decoration: none;
       text-align: center;
@@ -151,12 +224,12 @@
     }
 
     .product-btn:hover {
-      background: var(--btn-hover);
+      background: #1d4ed8;
     }
 
     .footer {
       text-align: center;
-      padding: 3rem 2rem;
+      padding: 2rem;
       color: var(--text-muted);
       font-size: 0.875rem;
       border-top: 1px solid var(--border);
@@ -166,223 +239,304 @@
 <body>
   
   <header class="header">
-    <h1>Sharon’s Tech</h1>
-    
+    <div class="header-content">
+      <div class="logo">Sharon’s Tech</div>
+      <nav class="nav">
+        <a href="#">Home</a>
+        <a href="#">Products</a>
+        <a href="#">Categories</a>
+        <a href="#">Contact</a>
+      </nav>
+    </div>
   </header>
+
+  <section class="hero">
+    <h1>Sharon’s Tech</h1>
+    <p>Curated collection of premium products at unbeatable prices</p>
+  </section>
   
   <main class="products-grid">
     
     <article class="product-card">
-      <img src="https://th-live-01.slatic.net/p/9b948b3bcfb266cc55415615bb791e31.jpg" alt="13-inch MacBook Air: Apple M4 chip with 10-core CPU and 8-core GPU, 16GB, 256GB SSD (2025)" class="product-image">
+      <div class="product-image-container">
+        <img src="https://th-live-01.slatic.net/p/9b948b3bcfb266cc55415615bb791e31.jpg" alt="13-inch MacBook Air: Apple M4 chip with 10-core CPU and 8-core GPU, 16GB, 256GB SSD (2025)" class="product-image">
+        
+      </div>
       <div class="product-info">
         <h2 class="product-title">13-inch MacBook Air: Apple M4 chip with 10-core CPU and 8-core GPU, 16GB, 256GB SSD (2025)</h2>
         <p class="product-price">฿28990</p>
-        <a href="https://www.lazada.co.th/products/i5661078924.html" target="_blank" rel="noopener" class="product-btn">View Product</a>
+        <a href="https://www.lazada.co.th/products/i5661078924.html" target="_blank" rel="noopener" class="product-btn">Shop Now</a>
       </div>
     </article>
 
     <article class="product-card">
-      <img src="https://th-live-01.slatic.net/p/5a8c6a3f29b54866ad15afe5a2044aff.jpg" alt="14-inch MacBook Pro: Apple M5 chip with 10‑core CPU and 10‑core GPU, 16GB, 512GB SSD" class="product-image">
+      <div class="product-image-container">
+        <img src="https://th-live-01.slatic.net/p/5a8c6a3f29b54866ad15afe5a2044aff.jpg" alt="14-inch MacBook Pro: Apple M5 chip with 10‑core CPU and 10‑core GPU, 16GB, 512GB SSD" class="product-image">
+        
+      </div>
       <div class="product-info">
         <h2 class="product-title">14-inch MacBook Pro: Apple M5 chip with 10‑core CPU and 10‑core GPU, 16GB, 512GB SSD</h2>
         <p class="product-price">฿51390</p>
-        <a href="https://www.lazada.co.th/products/i5910502204.html" target="_blank" rel="noopener" class="product-btn">View Product</a>
+        <a href="https://www.lazada.co.th/products/i5910502204.html" target="_blank" rel="noopener" class="product-btn">Shop Now</a>
       </div>
     </article>
 
     <article class="product-card">
-      <img src="https://th-live-01.slatic.net/p/1015057f07d30dcbb1f78f38f04a7476.jpg" alt="13-inch MacBook Air: Apple M2 chip with 8-core CPU and 8-core GPU, 16GB, 256GB" class="product-image">
+      <div class="product-image-container">
+        <img src="https://th-live-01.slatic.net/p/1015057f07d30dcbb1f78f38f04a7476.jpg" alt="13-inch MacBook Air: Apple M2 chip with 8-core CPU and 8-core GPU, 16GB, 256GB" class="product-image">
+        
+      </div>
       <div class="product-info">
         <h2 class="product-title">13-inch MacBook Air: Apple M2 chip with 8-core CPU and 8-core GPU, 16GB, 256GB</h2>
         <p class="product-price">฿25490</p>
-        <a href="https://www.lazada.co.th/products/i5443435564.html" target="_blank" rel="noopener" class="product-btn">View Product</a>
+        <a href="https://www.lazada.co.th/products/i5443435564.html" target="_blank" rel="noopener" class="product-btn">Shop Now</a>
       </div>
     </article>
 
     <article class="product-card">
-      <img src="https://th-live-01.slatic.net/p/4423f532d41a371e4dd57a4e277439c2.jpg" alt="iPhone 15" class="product-image">
+      <div class="product-image-container">
+        <img src="https://th-live-01.slatic.net/p/4423f532d41a371e4dd57a4e277439c2.jpg" alt="iPhone 15" class="product-image">
+        
+      </div>
       <div class="product-info">
         <h2 class="product-title">iPhone 15</h2>
         <p class="product-price">฿19590</p>
-        <a href="https://www.lazada.co.th/products/i4871507581.html" target="_blank" rel="noopener" class="product-btn">View Product</a>
+        <a href="https://www.lazada.co.th/products/i4871507581.html" target="_blank" rel="noopener" class="product-btn">Shop Now</a>
       </div>
     </article>
 
     <article class="product-card">
-      <img src="https://th-live-01.slatic.net/p/f6b76e81f4837427af46fbc72cdc9590.jpg" alt="11-inch iPad Wi-Fi 128GB ( A16 11th Gen 2025 )" class="product-image">
+      <div class="product-image-container">
+        <img src="https://th-live-01.slatic.net/p/f6b76e81f4837427af46fbc72cdc9590.jpg" alt="11-inch iPad Wi-Fi 128GB ( A16 11th Gen 2025 )" class="product-image">
+        
+      </div>
       <div class="product-info">
         <h2 class="product-title">11-inch iPad Wi-Fi 128GB ( A16 11th Gen 2025 )</h2>
         <p class="product-price">฿10990</p>
-        <a href="https://www.lazada.co.th/products/i5639629641.html" target="_blank" rel="noopener" class="product-btn">View Product</a>
+        <a href="https://www.lazada.co.th/products/i5639629641.html" target="_blank" rel="noopener" class="product-btn">Shop Now</a>
       </div>
     </article>
 
     <article class="product-card">
-      <img src="https://th-live-01.slatic.net/p/3478772383167c97d1d0faf6ebf42b59.jpg" alt="11-inch iPad Air Wi-Fi (M3) 2025" class="product-image">
+      <div class="product-image-container">
+        <img src="https://th-live-01.slatic.net/p/3478772383167c97d1d0faf6ebf42b59.jpg" alt="11-inch iPad Air Wi-Fi (M3) 2025" class="product-image">
+        
+      </div>
       <div class="product-info">
         <h2 class="product-title">11-inch iPad Air Wi-Fi (M3) 2025</h2>
         <p class="product-price">฿15390</p>
-        <a href="https://www.lazada.co.th/products/i5639715282.html" target="_blank" rel="noopener" class="product-btn">View Product</a>
+        <a href="https://www.lazada.co.th/products/i5639715282.html" target="_blank" rel="noopener" class="product-btn">Shop Now</a>
       </div>
     </article>
 
     <article class="product-card">
-      <img src="https://th-live-01.slatic.net/p/3416fcde88d468f2e2f9b1cf324ca699.jpg" alt="iPhone 17 Pro Max" class="product-image">
+      <div class="product-image-container">
+        <img src="https://th-live-01.slatic.net/p/3416fcde88d468f2e2f9b1cf324ca699.jpg" alt="iPhone 17 Pro Max" class="product-image">
+        
+      </div>
       <div class="product-info">
         <h2 class="product-title">iPhone 17 Pro Max</h2>
         <p class="product-price">฿47590</p>
-        <a href="https://www.lazada.co.th/products/i5866728858.html" target="_blank" rel="noopener" class="product-btn">View Product</a>
+        <a href="https://www.lazada.co.th/products/i5866728858.html" target="_blank" rel="noopener" class="product-btn">Shop Now</a>
       </div>
     </article>
 
     <article class="product-card">
-      <img src="https://th-live-01.slatic.net/p/d617c59fcf5eba7b3567532a053a3ec5.jpg" alt="11-inch iPad Pro WiFi (M4) 2024" class="product-image">
+      <div class="product-image-container">
+        <img src="https://th-live-01.slatic.net/p/d617c59fcf5eba7b3567532a053a3ec5.jpg" alt="11-inch iPad Pro WiFi (M4) 2024" class="product-image">
+        
+      </div>
       <div class="product-info">
         <h2 class="product-title">11-inch iPad Pro WiFi (M4) 2024</h2>
         <p class="product-price">฿35190</p>
-        <a href="https://www.lazada.co.th/products/i5162641172.html" target="_blank" rel="noopener" class="product-btn">View Product</a>
+        <a href="https://www.lazada.co.th/products/i5162641172.html" target="_blank" rel="noopener" class="product-btn">Shop Now</a>
       </div>
     </article>
 
     <article class="product-card">
-      <img src="https://th-live-01.slatic.net/p/7a16d5bdc6df59a3cc2aaa7ad9ae5296.jpg" alt="Apple AirPods 4" class="product-image">
+      <div class="product-image-container">
+        <img src="https://th-live-01.slatic.net/p/7a16d5bdc6df59a3cc2aaa7ad9ae5296.jpg" alt="Apple AirPods 4" class="product-image">
+        
+      </div>
       <div class="product-info">
         <h2 class="product-title">Apple AirPods 4</h2>
         <p class="product-price">฿3490</p>
-        <a href="https://www.lazada.co.th/products/i5348942349.html" target="_blank" rel="noopener" class="product-btn">View Product</a>
+        <a href="https://www.lazada.co.th/products/i5348942349.html" target="_blank" rel="noopener" class="product-btn">Shop Now</a>
       </div>
     </article>
 
     <article class="product-card">
-      <img src="https://th-live-01.slatic.net/p/ba7ad9817e768a54dd52526e9fc30e23.jpg" alt="Apple Watch Series 11 GPS 42mm,46mm Aluminium Case with Sport Band - S/M,M/L" class="product-image">
+      <div class="product-image-container">
+        <img src="https://th-live-01.slatic.net/p/ba7ad9817e768a54dd52526e9fc30e23.jpg" alt="Apple Watch Series 11 GPS 42mm,46mm Aluminium Case with Sport Band - S/M,M/L" class="product-image">
+        
+      </div>
       <div class="product-info">
         <h2 class="product-title">Apple Watch Series 11 GPS 42mm,46mm Aluminium Case with Sport Band - S/M,M/L</h2>
         <p class="product-price">฿11549</p>
-        <a href="https://www.lazada.co.th/products/i5867503341.html" target="_blank" rel="noopener" class="product-btn">View Product</a>
+        <a href="https://www.lazada.co.th/products/i5867503341.html" target="_blank" rel="noopener" class="product-btn">Shop Now</a>
       </div>
     </article>
 
     <article class="product-card">
-      <img src="https://th-live-01.slatic.net/p/be64face69e4ae883213aca00cb6fddc.jpg" alt="Apple Watch SE 3 GPS 40mm,44mm Aluminium Case with Sport Band - S/M,M/L" class="product-image">
+      <div class="product-image-container">
+        <img src="https://th-live-01.slatic.net/p/be64face69e4ae883213aca00cb6fddc.jpg" alt="Apple Watch SE 3 GPS 40mm,44mm Aluminium Case with Sport Band - S/M,M/L" class="product-image">
+        
+      </div>
       <div class="product-info">
         <h2 class="product-title">Apple Watch SE 3 GPS 40mm,44mm Aluminium Case with Sport Band - S/M,M/L</h2>
         <p class="product-price">฿8090</p>
-        <a href="https://www.lazada.co.th/products/i5867559024.html" target="_blank" rel="noopener" class="product-btn">View Product</a>
+        <a href="https://www.lazada.co.th/products/i5867559024.html" target="_blank" rel="noopener" class="product-btn">Shop Now</a>
       </div>
     </article>
 
     <article class="product-card">
-      <img src="https://th-live-01.slatic.net/p/be64face69e4ae883213aca00cb6fddc.jpg" alt="Apple Watch SE 3 GPS + Cellular 40mm,44mm Aluminium Case with Sport Band - S/M,M/L" class="product-image">
+      <div class="product-image-container">
+        <img src="https://th-live-01.slatic.net/p/be64face69e4ae883213aca00cb6fddc.jpg" alt="Apple Watch SE 3 GPS + Cellular 40mm,44mm Aluminium Case with Sport Band - S/M,M/L" class="product-image">
+        
+      </div>
       <div class="product-info">
         <h2 class="product-title">Apple Watch SE 3 GPS + Cellular 40mm,44mm Aluminium Case with Sport Band - S/M,M/L</h2>
         <p class="product-price">฿11090</p>
-        <a href="https://www.lazada.co.th/products/i5867490450.html" target="_blank" rel="noopener" class="product-btn">View Product</a>
+        <a href="https://www.lazada.co.th/products/i5867490450.html" target="_blank" rel="noopener" class="product-btn">Shop Now</a>
       </div>
     </article>
 
     <article class="product-card">
-      <img src="https://th-live-01.slatic.net/p/810c89ca633972401c4e18b683afdb86.jpg" alt="Apple Watch Series 10(2024) GPS + Cellular 42mm,46mm - Titanium Case with Milanese Loop" class="product-image">
+      <div class="product-image-container">
+        <img src="https://th-live-01.slatic.net/p/810c89ca633972401c4e18b683afdb86.jpg" alt="Apple Watch Series 10(2024) GPS + Cellular 42mm,46mm - Titanium Case with Milanese Loop" class="product-image">
+        
+      </div>
       <div class="product-info">
         <h2 class="product-title">Apple Watch Series 10(2024) GPS + Cellular 42mm,46mm - Titanium Case with Milanese Loop</h2>
         <p class="product-price">฿29900</p>
-        <a href="https://www.lazada.co.th/products/i5349703464.html" target="_blank" rel="noopener" class="product-btn">View Product</a>
+        <a href="https://www.lazada.co.th/products/i5349703464.html" target="_blank" rel="noopener" class="product-btn">Shop Now</a>
       </div>
     </article>
 
     <article class="product-card">
-      <img src="https://th-live-01.slatic.net/p/fd2a6811eab2f402145c0c41830a9ee1.jpg" alt="Apple Watch Ultra 3 GPS + Cellular 49mm Titanium Case with Trail Loop - S/M,M/L" class="product-image">
+      <div class="product-image-container">
+        <img src="https://th-live-01.slatic.net/p/fd2a6811eab2f402145c0c41830a9ee1.jpg" alt="Apple Watch Ultra 3 GPS + Cellular 49mm Titanium Case with Trail Loop - S/M,M/L" class="product-image">
+        
+      </div>
       <div class="product-info">
         <h2 class="product-title">Apple Watch Ultra 3 GPS + Cellular 49mm Titanium Case with Trail Loop - S/M,M/L</h2>
         <p class="product-price">฿27900</p>
-        <a href="https://www.lazada.co.th/products/i5868621635.html" target="_blank" rel="noopener" class="product-btn">View Product</a>
+        <a href="https://www.lazada.co.th/products/i5868621635.html" target="_blank" rel="noopener" class="product-btn">Shop Now</a>
       </div>
     </article>
 
     <article class="product-card">
-      <img src="https://th-live-01.slatic.net/p/95078443b5c16d2cf57f928e5b47ce4d.jpg" alt="Apple Watch Series 11 GPS + Cellular 42mm,46mm Aluminium Case with Sport Band - S/M,M/L" class="product-image">
+      <div class="product-image-container">
+        <img src="https://th-live-01.slatic.net/p/95078443b5c16d2cf57f928e5b47ce4d.jpg" alt="Apple Watch Series 11 GPS + Cellular 42mm,46mm Aluminium Case with Sport Band - S/M,M/L" class="product-image">
+        
+      </div>
       <div class="product-info">
         <h2 class="product-title">Apple Watch Series 11 GPS + Cellular 42mm,46mm Aluminium Case with Sport Band - S/M,M/L</h2>
         <p class="product-price">฿15390</p>
-        <a href="https://www.lazada.co.th/products/i5867500386.html" target="_blank" rel="noopener" class="product-btn">View Product</a>
+        <a href="https://www.lazada.co.th/products/i5867500386.html" target="_blank" rel="noopener" class="product-btn">Shop Now</a>
       </div>
     </article>
 
     <article class="product-card">
-      <img src="https://th-live-01.slatic.net/p/f9215d20fbfd8a8394b2b3bc121f9fda.jpg" alt="Apple Watch Ultra 3 GPS + Cellular 49mm Titanium Case with Ocean Band" class="product-image">
+      <div class="product-image-container">
+        <img src="https://th-live-01.slatic.net/p/f9215d20fbfd8a8394b2b3bc121f9fda.jpg" alt="Apple Watch Ultra 3 GPS + Cellular 49mm Titanium Case with Ocean Band" class="product-image">
+        
+      </div>
       <div class="product-info">
         <h2 class="product-title">Apple Watch Ultra 3 GPS + Cellular 49mm Titanium Case with Ocean Band</h2>
         <p class="product-price">฿27900</p>
-        <a href="https://www.lazada.co.th/products/i5867466675.html" target="_blank" rel="noopener" class="product-btn">View Product</a>
+        <a href="https://www.lazada.co.th/products/i5867466675.html" target="_blank" rel="noopener" class="product-btn">Shop Now</a>
       </div>
     </article>
 
     <article class="product-card">
-      <img src="https://th-live-01.slatic.net/p/89a19ebcd3fefe1df54117a40eb5b648.jpg" alt="Apple Watch Ultra 3 GPS + Cellular 49mm Titanium Case with Titanium Milanese Loop - S,M,L" class="product-image">
+      <div class="product-image-container">
+        <img src="https://th-live-01.slatic.net/p/89a19ebcd3fefe1df54117a40eb5b648.jpg" alt="Apple Watch Ultra 3 GPS + Cellular 49mm Titanium Case with Titanium Milanese Loop - S,M,L" class="product-image">
+        
+      </div>
       <div class="product-info">
         <h2 class="product-title">Apple Watch Ultra 3 GPS + Cellular 49mm Titanium Case with Titanium Milanese Loop - S,M,L</h2>
         <p class="product-price">฿31990</p>
-        <a href="https://www.lazada.co.th/products/i5868590719.html" target="_blank" rel="noopener" class="product-btn">View Product</a>
+        <a href="https://www.lazada.co.th/products/i5868590719.html" target="_blank" rel="noopener" class="product-btn">Shop Now</a>
       </div>
     </article>
 
     <article class="product-card">
-      <img src="https://th-live-01.slatic.net/p/44645a4313cd23a1a1311eee488c212b.jpg" alt="Apple Watch Series 10(2024) GPS + Cellular 42mm,46mm - Titanium Case with Sport Band" class="product-image">
+      <div class="product-image-container">
+        <img src="https://th-live-01.slatic.net/p/44645a4313cd23a1a1311eee488c212b.jpg" alt="Apple Watch Series 10(2024) GPS + Cellular 42mm,46mm - Titanium Case with Sport Band" class="product-image">
+        
+      </div>
       <div class="product-info">
         <h2 class="product-title">Apple Watch Series 10(2024) GPS + Cellular 42mm,46mm - Titanium Case with Sport Band</h2>
         <p class="product-price">฿19990</p>
-        <a href="https://www.lazada.co.th/products/i5349614640.html" target="_blank" rel="noopener" class="product-btn">View Product</a>
+        <a href="https://www.lazada.co.th/products/i5349614640.html" target="_blank" rel="noopener" class="product-btn">Shop Now</a>
       </div>
     </article>
 
     <article class="product-card">
-      <img src="https://th-live-01.slatic.net/p/5f2570ce0340e5a6adcdc4612d8baf71.jpg" alt="Apple Watch Ultra 3 GPS + Cellular 49mm Titanium Case with Alpine Loop - S,M,L" class="product-image">
+      <div class="product-image-container">
+        <img src="https://th-live-01.slatic.net/p/5f2570ce0340e5a6adcdc4612d8baf71.jpg" alt="Apple Watch Ultra 3 GPS + Cellular 49mm Titanium Case with Alpine Loop - S,M,L" class="product-image">
+        
+      </div>
       <div class="product-info">
         <h2 class="product-title">Apple Watch Ultra 3 GPS + Cellular 49mm Titanium Case with Alpine Loop - S,M,L</h2>
         <p class="product-price">฿27900</p>
-        <a href="https://www.lazada.co.th/products/i5868579749.html" target="_blank" rel="noopener" class="product-btn">View Product</a>
+        <a href="https://www.lazada.co.th/products/i5868579749.html" target="_blank" rel="noopener" class="product-btn">Shop Now</a>
       </div>
     </article>
 
     <article class="product-card">
-      <img src="https://th-live-01.slatic.net/p/755b9b16f61afa750600103e4d18f215.jpg" alt="Apple Watch Series 11 GPS + Cellular 42mm,46mm Titanium Case with Milanese Loop" class="product-image">
+      <div class="product-image-container">
+        <img src="https://th-live-01.slatic.net/p/755b9b16f61afa750600103e4d18f215.jpg" alt="Apple Watch Series 11 GPS + Cellular 42mm,46mm Titanium Case with Milanese Loop" class="product-image">
+        
+      </div>
       <div class="product-info">
         <h2 class="product-title">Apple Watch Series 11 GPS + Cellular 42mm,46mm Titanium Case with Milanese Loop</h2>
         <p class="product-price">฿24590</p>
-        <a href="https://www.lazada.co.th/products/i5867419985.html" target="_blank" rel="noopener" class="product-btn">View Product</a>
+        <a href="https://www.lazada.co.th/products/i5867419985.html" target="_blank" rel="noopener" class="product-btn">Shop Now</a>
       </div>
     </article>
 
     <article class="product-card">
-      <img src="https://th-live-01.slatic.net/p/9580cf0b91545e6d01df66978b6b4577.jpg" alt="Apple Watch Series 11 GPS + Cellular 42mm,46mm Titanium Case with Sport Band - S/M,M/L" class="product-image">
+      <div class="product-image-container">
+        <img src="https://th-live-01.slatic.net/p/9580cf0b91545e6d01df66978b6b4577.jpg" alt="Apple Watch Series 11 GPS + Cellular 42mm,46mm Titanium Case with Sport Band - S/M,M/L" class="product-image">
+        
+      </div>
       <div class="product-info">
         <h2 class="product-title">Apple Watch Series 11 GPS + Cellular 42mm,46mm Titanium Case with Sport Band - S/M,M/L</h2>
         <p class="product-price">฿22590</p>
-        <a href="https://www.lazada.co.th/products/i5867565003.html" target="_blank" rel="noopener" class="product-btn">View Product</a>
+        <a href="https://www.lazada.co.th/products/i5867565003.html" target="_blank" rel="noopener" class="product-btn">Shop Now</a>
       </div>
     </article>
 
     <article class="product-card">
-      <img src="https://th-live-01.slatic.net/p/129a874eb1c0a995399601cf5d02dd5b.jpg" alt="20W USB-C Power Adapter" class="product-image">
+      <div class="product-image-container">
+        <img src="https://th-live-01.slatic.net/p/129a874eb1c0a995399601cf5d02dd5b.jpg" alt="20W USB-C Power Adapter" class="product-image">
+        
+      </div>
       <div class="product-info">
         <h2 class="product-title">20W USB-C Power Adapter</h2>
         <p class="product-price">฿590</p>
-        <a href="https://www.lazada.co.th/products/i4952247889.html" target="_blank" rel="noopener" class="product-btn">View Product</a>
+        <a href="https://www.lazada.co.th/products/i4952247889.html" target="_blank" rel="noopener" class="product-btn">Shop Now</a>
       </div>
     </article>
 
     <article class="product-card">
-      <img src="https://th-live-01.slatic.net/p/68a42e86d8be2c46c2b8a7c45816213f.jpg" alt="Apple Pencil Pro (2024)" class="product-image">
+      <div class="product-image-container">
+        <img src="https://th-live-01.slatic.net/p/68a42e86d8be2c46c2b8a7c45816213f.jpg" alt="Apple Pencil Pro (2024)" class="product-image">
+        
+      </div>
       <div class="product-info">
         <h2 class="product-title">Apple Pencil Pro (2024)</h2>
         <p class="product-price">฿3490</p>
-        <a href="https://www.lazada.co.th/products/i5162622734.html" target="_blank" rel="noopener" class="product-btn">View Product</a>
+        <a href="https://www.lazada.co.th/products/i5162622734.html" target="_blank" rel="noopener" class="product-btn">Shop Now</a>
       </div>
     </article>
   </main>
   
   
   <footer class="footer">
-    <p>Powered by AffiliateMe</p>
+    <p>© 2026 Sharon’s Tech. Powered by AffiliateMe</p>
   </footer>
   
 </body>
